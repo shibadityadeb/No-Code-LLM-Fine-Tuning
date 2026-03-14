@@ -1,4 +1,9 @@
-fastapi==0.111.2
+fastapi==0.135.1
 uvicorn[standard]==0.23.1
 python-multipart==0.0.6
-pydantic==2.8.0
+pydantic>=2.11.2,<3
+
+# Core training / inference dependencies
+transformers>=4.40.0
+torch>=2.0.0
+peft>=0.5.0

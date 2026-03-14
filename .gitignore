@@ -1,13 +1,11 @@
 # Python
 __pycache__/
-*.py[cod]
-*.pyo
-*.pyd
+
 .Python
 env/
 venv/
 .venv/
-ENV/
+
 
 # VS Code
 .vscode/
@@ -20,8 +18,8 @@ dist/
 
 # Logs
 *.log
-logs/
+
 
 # OS
 .DS_Store
-Thumbs.db
+
