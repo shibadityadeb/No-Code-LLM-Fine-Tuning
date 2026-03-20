@@ -1,14 +1,11 @@
 import React from "react";
 
-export default function Card({ children, style = {} }) {
+export default function Card({ children, className = "", style = {} }) {
   return (
-    <div style={{
-      background: "#fff",
-      borderRadius: 16,
-      border: "1px solid #e4e4e7",
-      padding: "24px",
-      ...style,
-    }}>
+    <div
+      className={`rounded-2xl border border-gray-200 bg-white p-5 shadow-sm ${className}`}
+      style={style}
+    >
       {children}
     </div>
   );
