@@ -1,36 +1,55 @@
 import axios from "axios";
 
-// Basic API client for talking to the backend.
+// Base API client for backend communication.
+// Note: backend runs on port 8000; frontend runs on 5174/5175.
 const api = axios.create({
-  baseURL: "/api",
-  timeout: 30_000,
+  baseURL: "http://localhost:8000/api",
+  timeout: 60000,
 });
 
 export async function uploadDataset(file) {
   const formData = new FormData();
   formData.append("file", file);
-  await api.post("/upload", formData, {
+
+  const response = await api.post("/upload-dataset", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-}
-
-export async function startTraining() {
-  return api.post("/train");
-}
-
-export async function sendChatMessage(message) {
-  const response = await api.post("/chat", { prompt: message });
   return response.data;
 }
 
-export async function downloadAdapter() {
-  // This will trigger the browser to download the adapter.
-  const response = await api.get("/download", { responseType: "blob" });
+export async function startTraining(modelName, datasetFile) {
+  const response = await api.post("/start-training", {
+    model_name: modelName,
+    dataset_file: datasetFile,
+  });
+  return response.data;
+}
+
+export async function getTrainingStatus() {
+  const response = await api.get("/training-status");
+  return response.data;
+}
+
+export async function sendMessage(modelName, userMessage) {
+  const response = await api.post("/chat", {
+    model_name: modelName,
+    user_message: userMessage,
+  });
+  return response.data;
+}
+
+export async function downloadModel(modelName) {
+  const response = await api.get(`/download-model/${encodeURIComponent(modelName)}`, {
+    responseType: "blob",
+  });
+
   const url = window.URL.createObjectURL(new Blob([response.data]));
   const link = document.createElement("a");
   link.href = url;
-  link.setAttribute("download", "adapter.zip");
+  link.setAttribute("download", `${modelName}_adapter.zip`);
   document.body.appendChild(link);
   link.click();
   link.remove();
+  window.URL.revokeObjectURL(url);
 }
+
