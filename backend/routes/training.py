@@ -1,10 +1,11 @@
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 
+import os
 from pathlib import Path
 
 from backend.routes.upload import UPLOADED_DATASETS
-from backend.services.training_pipeline import get_training_status, start_training, TRAINING_STATUS
+from backend.services.training_pipeline import start_training
 from backend.utils.status_store import read_status
 
 router = APIRouter()
@@ -24,7 +25,7 @@ class TrainingStatusResponse(BaseModel):
     total_epochs: int | None
     progress_percent: float
     loss: float | None
-    status: str  # "running" or "completed"
+    status: str
 
 
 def _start_training_job(request: TrainingRequest, dataset_bytes: bytes | None) -> None:
@@ -76,35 +77,13 @@ async def start_training_endpoint(request: TrainingRequest, background_tasks: Ba
 
 @router.get("/training-status")
 def training_status() -> TrainingStatusResponse:
-    """Get the most recent training status (epoch, loss, progress)."""
-    try:
-        persisted = read_status()
-        raw_status = {
-            "epoch": persisted.get("current_epoch"),
-            "total_epochs": persisted.get("total_epochs"),
-            "loss": persisted.get("loss"),
-            "progress": persisted.get("progress_percent"),
-            "running": persisted.get("status") == "running",
-        }
-    except Exception:
-        try:
-            raw_status = get_training_status()
-        except Exception:
-            raw_status = {
-                "epoch": TRAINING_STATUS.get("epoch"),
-                "total_epochs": TRAINING_STATUS.get("total_epochs"),
-                "loss": TRAINING_STATUS.get("loss"),
-                "progress": TRAINING_STATUS.get("progress"),
-                "running": TRAINING_STATUS.get("running", False),
-            }
-    # Ensure progress_percent is always a valid number (not None)
-    progress = raw_status.get("progress") or 0
-    if progress is None:
-        progress = 0
-    return TrainingStatusResponse(
-        current_epoch=raw_status.get("epoch"),
-        total_epochs=raw_status.get("total_epochs"),
-        progress_percent=float(progress),
-        loss=raw_status.get("loss"),
-        status="running" if raw_status.get("running") else "completed",
-    )
+    """Get the most recent training status without crashing on missing/corrupt files."""
+    return TrainingStatusResponse(**read_status())
+
+
+@router.get("/debug-status")
+def debug_status() -> dict[str, bool]:
+    return {
+        "logs_exists": os.path.exists("logs"),
+        "file_exists": os.path.exists("logs/training_status.json"),
+    }

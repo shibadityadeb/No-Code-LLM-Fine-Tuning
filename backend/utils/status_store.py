@@ -16,19 +16,37 @@ DEFAULT_STATUS: Dict[str, Any] = {
 }
 
 
-def ensure_status_file() -> None:
+def init_status_file() -> None:
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
     if not STATUS_FILE.exists():
-        write_status(DEFAULT_STATUS)
+        try:
+            with open(STATUS_FILE, "w", encoding="utf-8") as f:
+                json.dump(DEFAULT_STATUS, f)
+        except Exception:
+            pass
+
+
+def ensure_status_file() -> None:
+    init_status_file()
 
 
 def read_status() -> Dict[str, Any]:
-    ensure_status_file()
-    with open(STATUS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    init_status_file()
+    try:
+        with open(STATUS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            return {**DEFAULT_STATUS, **data}
+    except Exception:
+        pass
+    return DEFAULT_STATUS.copy()
 
 
 def write_status(data: Dict[str, Any]) -> None:
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
-    with open(STATUS_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f)
+    payload = {**DEFAULT_STATUS, **data}
+    try:
+        with open(STATUS_FILE, "w", encoding="utf-8") as f:
+            json.dump(payload, f)
+    except Exception as exc:
+        print(f"Error writing status: {exc}")
