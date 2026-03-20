@@ -116,7 +116,6 @@ def _load_dataset_texts(dataset_path: str) -> List[str]:
         with open(dataset_path, "r", encoding="utf-8", errors="ignore") as f:
             reader = DictReader(f)
             for row in reader:
-                # Prefer a 'text' column if present.
                 if "text" in row and row["text"]:
                     texts.append(row["text"])
                 else:
@@ -135,22 +134,43 @@ def _load_dataset_texts(dataset_path: str) -> List[str]:
                 else:
                     texts.append(str(item))
         else:
-            # Single object
             texts.append(str(data))
 
     else:
-        # Plain text file: one example per line
         with open(dataset_path, "r", encoding="utf-8", errors="ignore") as f:
             for line in f:
                 line = line.strip()
                 if line:
                     texts.append(line)
 
-    # Ensure we have at least one training example
     if not texts:
         raise ValueError("Dataset did not contain any usable text examples.")
 
     return texts
+
+
+def _load_dataset_texts_from_bytes(dataset_name: str, contents: bytes) -> List[str]:
+    """Load dataset examples from in-memory bytes."""
+
+    suffix = Path(dataset_name).suffix.lower()
+    if suffix == ".csv" or suffix == ".json" or suffix == ".txt":
+        # Write to a temporary file to reuse existing logic.
+        import tempfile
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+            tmp.write(contents)
+            tmp_path = tmp.name
+
+        try:
+            return _load_dataset_texts(tmp_path)
+        finally:
+            try:
+                Path(tmp_path).unlink()
+            except Exception:
+                pass
+
+    raise ValueError(f"Unsupported dataset type: {suffix}")
+
 
 
 class TextDataset(torch.utils.data.Dataset):
@@ -181,6 +201,7 @@ def _run_training_job(
     epochs: int,
     batch_size: int,
     learning_rate: float,
+    dataset_bytes: Optional[bytes] = None,
 ) -> None:
     """Background worker that runs the training job."""
 
@@ -200,11 +221,15 @@ def _run_training_job(
 
     try:
         # Validate dataset before training.
-        dataset_path = DATASETS_DIR / dataset_file
-        validate_dataset(str(dataset_path))
+        if dataset_bytes is not None:
+            from backend.services.dataset_validator import validate_dataset_bytes
 
-        # Load text examples from the dataset.
-        texts = _load_dataset_texts(str(dataset_path))
+            validate_dataset_bytes(dataset_file, dataset_bytes)
+            texts = _load_dataset_texts_from_bytes(dataset_file, dataset_bytes)
+        else:
+            dataset_path = DATASETS_DIR / dataset_file
+            validate_dataset(str(dataset_path))
+            texts = _load_dataset_texts(str(dataset_path))
 
         model_id = MODEL_NAME_MAP.get(model_name, None)
         if model_id is None:
@@ -284,6 +309,7 @@ def start_training(
     epochs: int = 3,
     batch_size: int = 4,
     learning_rate: float = 2e-5,
+    dataset_bytes: Optional[bytes] = None,
 ) -> str:
     """Start a background training job.
 
@@ -293,7 +319,15 @@ def start_training(
     job_id = f"{model_name}-{int(time.time())}"
     thread = threading.Thread(
         target=_run_training_job,
-        args=(job_id, model_name, dataset_file, epochs, batch_size, learning_rate),
+        args=(
+            job_id,
+            model_name,
+            dataset_file,
+            epochs,
+            batch_size,
+            learning_rate,
+            dataset_bytes,
+        ),
         daemon=True,
     )
     thread.start()
