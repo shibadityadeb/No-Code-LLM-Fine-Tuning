@@ -18,12 +18,19 @@ MODEL_NAME_MAP = {
 ROOT_DIR = Path(__file__).resolve().parents[2]
 ADAPTERS_DIR = ROOT_DIR / "adapters"
 
+# message to include when adapter missing/fallback mode.
+FALLBACK_WARNING: Optional[str] = None
+
 
 def _load_model_and_tokenizer(model_name: str):
     """Load (or re-use cached) model + tokenizer for a given base model name."""
 
     if model_name in _MODEL_CACHE:
-        return _MODEL_CACHE[model_name]["model"], _MODEL_CACHE[model_name]["tokenizer"]
+        return (
+            _MODEL_CACHE[model_name]["model"],
+            _MODEL_CACHE[model_name]["tokenizer"],
+            _MODEL_CACHE[model_name].get("warning"),
+        )
 
     model_id = MODEL_NAME_MAP.get(model_name)
     if model_id is None:
@@ -33,30 +40,54 @@ def _load_model_and_tokenizer(model_name: str):
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    # Load base LM
-    base_model = AutoModelForCausalLM.from_pretrained(model_id)
+    model_kwargs = {"torch_dtype": torch.float16, "device_map": "auto"}
 
-    # If an adapter has been trained, load it.
+    # Attempt quantized low-VRAM loading if supported.
+    try:
+        from transformers import BitsAndBytesConfig
+
+        quant_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_use_double_quant=True,
+        )
+        model_kwargs["quantization_config"] = quant_config
+    except Exception:
+        pass
+
+    try:
+        base_model = AutoModelForCausalLM.from_pretrained(model_id, **model_kwargs)
+    except Exception:
+        base_model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16)
+
     adapter_path = ADAPTERS_DIR / f"{model_name}_adapter"
+    warning: Optional[str] = None
+
     if adapter_path.exists():
         try:
-            model = PeftModel.from_pretrained(base_model, str(adapter_path))
+            model = PeftModel.from_pretrained(base_model, str(adapter_path), torch_dtype=torch.float16)
+            if hasattr(model, "merge_and_unload"):
+                model = model.merge_and_unload()
         except Exception:
             model = base_model
+            warning = "Running base model (LoRA adapter exists but failed to load)."
     else:
         model = base_model
+        warning = "Running base model (fine-tuning skipped or adapter unavailable)."
 
     if torch.cuda.is_available():
         model = model.to("cuda")
 
-    _MODEL_CACHE[model_name] = {"model": model, "tokenizer": tokenizer}
-    return model, tokenizer
+    _MODEL_CACHE[model_name] = {"model": model, "tokenizer": tokenizer, "warning": warning}
+    return model, tokenizer, warning
 
 
-def _lookup_customer_by_id(customer_id: str) -> str | None:
+def _lookup_customer_by_id(customer_id: str) -> Optional[str]:
     """Return customer name from first dataset file containing id/name fields."""
+    datasets_dir = ROOT_DIR / "datasets"
 
-    for dataset_file in DATASETS_DIR.iterdir():
+    for dataset_file in datasets_dir.iterdir():
         if not dataset_file.is_file():
             continue
 
@@ -103,7 +134,7 @@ def _lookup_customer_by_id(customer_id: str) -> str | None:
     return None
 
 
-def generate_response(model_name: str, prompt: str, max_tokens: int = 128) -> str:
+def generate_response(model_name: str, prompt: str, max_tokens: int = 100) -> str:
     """Generate a response using the selected model and any trained LoRA adapter."""
 
     # 1) Quick structured dataset answer for ID lookup and matching use-cases.
@@ -116,8 +147,8 @@ def generate_response(model_name: str, prompt: str, max_tokens: int = 128) -> st
         if customer_name:
             return f"Customer id {customer_id} corresponds to name: {customer_name}."
 
-    # 2) General purpose LLM generation fallback.
-    model, tokenizer = _load_model_and_tokenizer(model_name)
+    # 2) General-purpose LLM generation fallback.
+    model, tokenizer, warning = _load_model_and_tokenizer(model_name)
 
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids
     if torch.cuda.is_available():
@@ -132,7 +163,9 @@ def generate_response(model_name: str, prompt: str, max_tokens: int = 128) -> st
     )
 
     decoded = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-    # Return model's reply after the prompt if possible.
     if decoded.startswith(prompt):
-        return decoded[len(prompt) :].strip()
+        decoded = decoded[len(prompt) :].strip()
+
+    if warning:
+        return f"{warning}\n{decoded}"
     return decoded

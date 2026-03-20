@@ -2,6 +2,7 @@ import csv
 import json
 import os
 from pathlib import Path
+from typing import List
 
 # Limits for uploaded datasets.
 MAX_DATASET_ROWS = 500
@@ -72,6 +73,98 @@ def validate_dataset(file_path: str) -> dict:
         )
 
     return {"rows": rows, "size_bytes": size_bytes}
+
+
+def _format_instruction_entry(instruction: str, response: str) -> str:
+    """Turn raw instruction/response into model input format."""
+    return f"### Instruction: {instruction.strip()}\n### Response: {response.strip()}"
+
+
+def load_and_clean_dataset(file_path: str) -> List[str]:
+    """Load raw dataset entries and prepare instruction-response pairs.
+
+    Accepts CSV/JSON/TXT.
+    Returns list of strings in the instruction format.
+    """
+
+    path = Path(file_path)
+    if not path.exists() or not path.is_file():
+        raise DatasetValidationError("Dataset file does not exist")
+
+    ext = path.suffix.lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        raise DatasetValidationError(
+            f"Unsupported file type '{ext}'. Allowed: {', '.join(sorted(ALLOWED_EXTENSIONS))}"
+        )
+
+    entries: List[str] = []
+
+    if ext == ".csv":
+        with open(path, "r", encoding="utf-8", errors="ignore") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                instruction = row.get("instruction") or row.get("prompt") or ""
+                response = row.get("response") or row.get("output") or ""
+                if not instruction and response:
+                    instruction = response
+                    response = ""
+                if instruction:
+                    entries.append(_format_instruction_entry(instruction, response))
+
+    elif ext == ".json":
+        with open(path, "r", encoding="utf-8", errors="ignore") as f:
+            data = json.load(f)
+
+        if isinstance(data, list):
+            for item in data:
+                if isinstance(item, dict):
+                    instruction = item.get("instruction") or item.get("prompt") or ""
+                    response = item.get("response") or item.get("output") or ""
+                    if not instruction and response:
+                        instruction = response
+                        response = ""
+                    if instruction:
+                        entries.append(_format_instruction_entry(instruction, response))
+                else:
+                    entries.append(_format_instruction_entry(str(item), ""))
+        elif isinstance(data, dict):
+            instruction = data.get("instruction") or data.get("prompt") or ""
+            response = data.get("response") or data.get("output") or ""
+            if not instruction and response:
+                instruction = response
+                response = ""
+            if instruction:
+                entries.append(_format_instruction_entry(instruction, response))
+        else:
+            entries.append(_format_instruction_entry(str(data), ""))
+
+    else:
+        with open(path, "r", encoding="utf-8", errors="ignore") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                if "\t" in line:
+                    parts = [p.strip() for p in line.split("\t") if p.strip()]
+                elif "|" in line:
+                    parts = [p.strip() for p in line.split("|") if p.strip()]
+                elif "," in line:
+                    parts = [p.strip() for p in line.split(",") if p.strip()]
+                else:
+                    parts = [line]
+
+                if len(parts) >= 2:
+                    instruction, response = parts[0], parts[1]
+                else:
+                    instruction, response = parts[0], ""
+
+                entries.append(_format_instruction_entry(instruction, response))
+
+    if not entries:
+        raise DatasetValidationError("Dataset did not contain any usable instruction/response examples.")
+
+    # Trim to max rows by keeping first 500
+    return entries[:MAX_DATASET_ROWS]
 
 
 def validate_dataset_bytes(file_name: str, contents: bytes) -> dict:

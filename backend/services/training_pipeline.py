@@ -1,15 +1,31 @@
 import logging
 import re
+import tempfile
 import threading
 import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    Trainer,
+    TrainingArguments,
+    DataCollatorForLanguageModeling,
+    TrainerCallback,
+)
+
+try:
+    from transformers import BitsAndBytesConfig
+    _BITSANDBYTES_AVAILABLE = True
+except ImportError:
+    BitsAndBytesConfig = None  # type: ignore
+    _BITSANDBYTES_AVAILABLE = False
+
 from peft import LoraConfig, get_peft_model
 
-from backend.services.dataset_validator import validate_dataset
+from backend.services.dataset_validator import load_and_clean_dataset, validate_dataset
 
 # Paths used for datasets, adapters and logs.
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -237,58 +253,100 @@ def _run_training_job(
                 f"Unsupported model_name '{model_name}'. Choose from: {', '.join(MODEL_NAME_MAP.keys())}"
             )
 
-        # Load tokenizer + base model.
+        # If no GPU is available, use base model and skip expensive fine-tuning.
+        if not torch.cuda.is_available():
+            _append_log("No GPU available; skipping fine-tuning and using base model for inference.")
+            TRAINING_STATUS.update({"running": False})
+            return
+
+        # Load tokenizer + base model with resource-optimized settings.
         tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
-        # Ensure we have a padding token for batched training.
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
 
-        base_model = AutoModelForCausalLM.from_pretrained(model_id)
+        model_load_kwargs = {
+            "torch_dtype": torch.float16,
+            "device_map": "auto",
+        }
+
+        if _BITSANDBYTES_AVAILABLE and BitsAndBytesConfig is not None:
+            quant_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_use_double_quant=True,
+            )
+            model_load_kwargs.update({"quantization_config": quant_config})
+
+        base_model = AutoModelForCausalLM.from_pretrained(model_id, **model_load_kwargs)
 
         # Apply PEFT LoRA wrapper.
         peft_config = LoraConfig(
             task_type="CAUSAL_LM",
             inference_mode=False,
             r=8,
-            lora_alpha=32,
+            lora_alpha=16,
             lora_dropout=0.1,
         )
         model = get_peft_model(base_model, peft_config)
 
-        train_dataset = TextDataset(texts, tokenizer)
+        clean_texts = load_and_clean_dataset(str(DATASETS_DIR / dataset_file)) if dataset_bytes is None else None
+        if dataset_bytes is not None:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=Path(dataset_file).suffix.lower()) as tmp:
+                tmp.write(dataset_bytes)
+                tmp_path = tmp.name
+            try:
+                clean_texts = load_and_clean_dataset(tmp_path)
+            finally:
+                Path(tmp_path).unlink(missing_ok=True)
+
+        train_dataset = TextDataset(clean_texts, tokenizer)
 
         adapter_dir = ADAPTERS_DIR / f"{model_name}_adapter"
         adapter_dir.mkdir(parents=True, exist_ok=True)
 
-        # Use a basic training loop so we can track progress per epoch.
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        model = model.to(device)
-
-        dataloader = torch.utils.data.DataLoader(
-            train_dataset, batch_size=batch_size, shuffle=True
+        # Use Trainer (HuggingFace) for structured training + logging.
+        data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
+        training_args = TrainingArguments(
+            output_dir=str(adapter_dir),
+            num_train_epochs=epochs,
+            per_device_train_batch_size=batch_size,
+            learning_rate=learning_rate,
+            logging_steps=1,
+            save_strategy="no",
+            logging_dir=str(LOGS_DIR),
+            fp16=True,
+            report_to="none",
         )
-        optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
-        for epoch in range(1, epochs + 1):
-            model.train()
-            epoch_loss = 0.0
-            for batch in dataloader:
-                batch = {k: v.to(device) for k, v in batch.items()}
-                outputs = model(**batch)
-                loss = outputs.loss
-                loss.backward()
-                optimizer.step()
-                optimizer.zero_grad()
-                epoch_loss += loss.item()
+        class LoggingCallback(TrainerCallback):
+            def on_log(self, args, state, control, logs=None, **kwargs):
+                if logs is None:
+                    return
+                if "loss" in logs and "epoch" in logs:
+                    epoch_val = logs.get("epoch")
+                    loss_val = logs.get("loss")
+                    _append_log(f"Epoch {epoch_val:.1f} | Loss: {loss_val:.4f}")
+                    TRAINING_STATUS.update(
+                        {
+                            "epoch": float(epoch_val),
+                            "loss": float(loss_val),
+                            "progress": min(100.0, (epoch_val / epochs) * 100.0),
+                        }
+                    )
 
-            avg_loss = epoch_loss / max(1, len(dataloader))
-            progress = (epoch / epochs) * 100.0
-            TRAINING_STATUS.update({"epoch": epoch, "loss": avg_loss, "progress": progress})
-            _append_log(
-                f"Epoch {epoch}/{epochs} | loss={avg_loss:.4f} | progress={progress:.1f}%"
-            )
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            train_dataset=train_dataset,
+            data_collator=data_collator,
+            tokenizer=tokenizer,
+            callbacks=[LoggingCallback],
+        )
 
-        # Save the trained adapter weights.
+        trainer.train()
+        trainer.save_model(str(adapter_dir))
+        # Ensure adapter-specific artifacts are saved for the PEFT model.
         model.save_pretrained(str(adapter_dir))
         tokenizer.save_pretrained(str(adapter_dir))
 
