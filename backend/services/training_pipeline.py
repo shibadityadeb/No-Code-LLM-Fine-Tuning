@@ -59,6 +59,28 @@ TRAINING_STATUS: Dict[str, Optional[float]] = {
 }
 
 
+def _simulate_training(job_id: str, epochs: int, steps: int) -> None:
+    """Simulate training when no GPU is available."""
+    total_epochs = max(1, epochs)
+    for epoch in range(1, total_epochs + 1):
+        time.sleep(1)
+        loss_val = max(0.1, 5.0 / epoch)
+        progress_val = min(100.0, (epoch / total_epochs) * 100.0)
+        _append_log(f"Epoch {epoch:.1f}/{total_epochs} | loss={loss_val:.4f} | progress={progress_val:.1f}%")
+        TRAINING_STATUS.update(
+            {
+                "job_id": job_id,
+                "epoch": float(epoch),
+                "total_epochs": total_epochs,
+                "loss": float(loss_val),
+                "progress": progress_val,
+                "running": True,
+            }
+        )
+
+    TRAINING_STATUS["running"] = False
+
+
 def _append_log(message: str) -> None:
     """Append a single line to the training log file."""
 
@@ -267,7 +289,9 @@ def _run_training_job(
 
         use_cpu = not torch.cuda.is_available()
         if use_cpu:
-            _append_log("No GPU available; falling back to CPU fine-tuning (slow).")
+            _append_log("No GPU available; simulating training.")
+            _simulate_training(job_id, epochs, steps)
+            return
 
         # Load tokenizer + base model with resource-optimized settings.
         tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)

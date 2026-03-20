@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 
 from pathlib import Path
@@ -26,8 +26,20 @@ class TrainingStatusResponse(BaseModel):
     status: str  # "running" or "completed"
 
 
+def _start_training_job(request: TrainingRequest, dataset_bytes: bytes | None) -> None:
+    start_training(
+        request.model_name,
+        request.dataset_file,
+        epochs=request.epochs,
+        batch_size=request.batch_size,
+        learning_rate=request.learning_rate,
+        steps=request.steps,
+        dataset_bytes=dataset_bytes,
+    )
+
+
 @router.post("/start-training")
-def start_training_endpoint(request: TrainingRequest):
+async def start_training_endpoint(request: TrainingRequest, background_tasks: BackgroundTasks):
     """Start a LoRA fine-tuning job with specified parameters."""
 
     dataset_bytes = UPLOADED_DATASETS.get(request.dataset_file)
@@ -55,19 +67,11 @@ def start_training_endpoint(request: TrainingRequest):
         raise HTTPException(status_code=400, detail="Batch size must be at least 1.")
 
     try:
-        job_id = start_training(
-            request.model_name,
-            request.dataset_file,
-            epochs=request.epochs,
-            batch_size=request.batch_size,
-            learning_rate=request.learning_rate,
-            steps=request.steps,
-            dataset_bytes=dataset_bytes,
-        )
+        background_tasks.add_task(_start_training_job, request, dataset_bytes)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    return {"status": "started", "job_id": job_id}
+    return {"status": "started"}
 
 
 @router.get("/training-status")
