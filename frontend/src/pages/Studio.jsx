@@ -12,6 +12,7 @@ import {
   AlertCircle,
   Download,
   Check,
+  MessageSquare,
 } from "lucide-react";
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import Card from "../components/Card.jsx";
@@ -89,12 +90,12 @@ function ChartTooltip({ active, payload }) {
   );
 }
 
-export default function Studio({ darkMode = false }) {
+export default function Studio({ darkMode = false, onOpenChat }) {
   const [model, setModel] = useState(BASE_MODELS[0]);
   const [method, setMethod] = useState(METHODS[0]);
   const [token, setToken] = useState("");
 
-  const [datasetSearch, setDatasetSearch] = useState("alpaca");
+  const [datasetSearch, setDatasetSearch] = useState("");
   const [datasetType, setDatasetType] = useState(DATASET_TYPES[0]);
   const [datasetSplit, setDatasetSplit] = useState(SPLITS[0]);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -140,6 +141,7 @@ export default function Studio({ darkMode = false }) {
     return `${uploadMeta.file_name} • ${uploadMeta.rows} rows`;
   }, [uploadMeta]);
 
+
   useEffect(() => {
     // Fetch saved snapshot on component mount
     const fetchSnapshot = async () => {
@@ -178,6 +180,7 @@ export default function Studio({ darkMode = false }) {
       setUploading(false);
     }
   };
+
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -457,7 +460,7 @@ export default function Studio({ darkMode = false }) {
                 <Input
                   value={datasetSearch}
                   onChange={(event) => setDatasetSearch(event.target.value)}
-                  placeholder="Search Hugging Face datasets"
+                  placeholder="Search datasets (name or keyword)"
                   className="pl-11"
                 />
               </div>
@@ -563,6 +566,7 @@ export default function Studio({ darkMode = false }) {
                 </p>
               </div>
             )}
+
           </div>
         </Card>
 
@@ -709,6 +713,16 @@ export default function Studio({ darkMode = false }) {
                 Download
               </Button>
             </div>
+
+            <Button
+              variant="secondary"
+              className="w-full"
+              disabled={!trainingComplete}
+              onClick={() => onOpenChat?.()}
+            >
+              <MessageSquare size={16} />
+              Chat with fine-tuned model
+            </Button>
 
             <Button variant="secondary" className="w-full" onClick={handleReset}>
               <RotateCcw size={16} />

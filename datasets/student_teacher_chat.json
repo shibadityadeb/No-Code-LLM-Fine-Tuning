@@ -1,0 +1,3186 @@
+{
+  "dataset": "Student-Teacher Conversations",
+  "generated_at": "2026-03-20T18:15:36.313055",
+  "conversations": [
+    {
+      "conversation_id": "conv_001",
+      "topic": "Chemistry",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_002",
+      "topic": "Biology",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_003",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_004",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_005",
+      "topic": "Programming",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_006",
+      "topic": "Chemistry",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_007",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_008",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_009",
+      "topic": "Chemistry",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_010",
+      "topic": "Programming",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_011",
+      "topic": "Programming",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_012",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_013",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_014",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_015",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_016",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_017",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_018",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_019",
+      "topic": "Biology",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_020",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_021",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_022",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_023",
+      "topic": "Biology",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_024",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_025",
+      "topic": "Math",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_026",
+      "topic": "Programming",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_027",
+      "topic": "Biology",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_028",
+      "topic": "Physics",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_029",
+      "topic": "Programming",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Why is this important?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_030",
+      "topic": "Biology",
+      "messages": [
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:15:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:15:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:15:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:15:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:15:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:16:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Let me break it down step by step.",
+          "timestamp": "2026-03-20T18:16:11.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:16.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:21.310941"
+        },
+        {
+          "sender": "student",
+          "text": "I didn't understand the last part.",
+          "timestamp": "2026-03-20T18:16:26.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Practice more problems to master this.",
+          "timestamp": "2026-03-20T18:16:31.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you explain this concept?",
+          "timestamp": "2026-03-20T18:16:36.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "This concept is important because it builds fundamentals.",
+          "timestamp": "2026-03-20T18:16:41.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Can you give an example?",
+          "timestamp": "2026-03-20T18:16:46.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Sure, let me explain.",
+          "timestamp": "2026-03-20T18:16:51.310941"
+        },
+        {
+          "sender": "student",
+          "text": "Is this going to be in the exam?",
+          "timestamp": "2026-03-20T18:16:56.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Here's an example to help you understand.",
+          "timestamp": "2026-03-20T18:17:01.310941"
+        },
+        {
+          "sender": "student",
+          "text": "How do we solve this problem?",
+          "timestamp": "2026-03-20T18:17:06.310941"
+        },
+        {
+          "sender": "teacher",
+          "text": "Focus on the logic behind it.",
+          "timestamp": "2026-03-20T18:17:11.310941"
+        }
+      ]
+    }
+  ]
+}

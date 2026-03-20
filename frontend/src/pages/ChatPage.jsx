@@ -3,7 +3,7 @@ import { Bot, CornerDownLeft, SendHorizonal } from "lucide-react";
 import Card from "../components/Card.jsx";
 import Button from "../components/Button.jsx";
 import Input, { FieldLabel, Select } from "../components/Input.jsx";
-import { sendMessage } from "../services/api.js";
+import { getWorkspaceSnapshot, sendMessage } from "../services/api.js";
 
 const MODELS = ["TinyLlama", "DistilGPT2", "Phi-2"];
 
@@ -12,15 +12,37 @@ export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [readyMessage, setReadyMessage] = useState("");
   const bottomRef = useRef(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
+  useEffect(() => {
+    const checkSnapshot = async () => {
+      try {
+        const snapshot = await getWorkspaceSnapshot();
+        if (snapshot && snapshot.status !== "empty") {
+          setReady(true);
+          setReadyMessage("");
+        } else {
+          setReady(false);
+          setReadyMessage("Fine-tune a model before chatting.");
+        }
+      } catch (error) {
+        setReady(false);
+        setReadyMessage("Fine-tune a model before chatting.");
+      }
+    };
+
+    checkSnapshot();
+  }, []);
+
   const handleSend = async () => {
     const nextMessage = input.trim();
-    if (!nextMessage || loading) {
+    if (!nextMessage || loading || !ready) {
       return;
     }
 
@@ -127,9 +149,10 @@ export default function ChatPage() {
                 }
               }}
               placeholder="Ask your model a question..."
+              disabled={!ready}
             />
             <Button
-              disabled={loading || !input.trim()}
+              disabled={loading || !input.trim() || !ready}
               onClick={handleSend}
               className="sm:min-w-[140px]"
             >
@@ -137,6 +160,11 @@ export default function ChatPage() {
               Send
             </Button>
           </div>
+          {readyMessage && (
+            <div className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              {readyMessage}
+            </div>
+          )}
           <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">
             <CornerDownLeft size={14} />
             Press Enter to send
