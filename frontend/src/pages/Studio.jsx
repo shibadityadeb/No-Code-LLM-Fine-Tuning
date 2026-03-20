@@ -648,8 +648,8 @@ export default function Studio({ darkMode = false, onOpenChat }) {
                   {training ? "Running" : "Idle"}
                 </div>
               </div>
-              <div className="h-40">
-                <ResponsiveContainer width="100%" height="100%">
+              <div className="h-40 w-full min-h-[160px]">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={160}>
                   <LineChart data={lossHistory} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
                     <XAxis dataKey="step" stroke="#d1d5db" style={{ fontSize: "12px" }} />
                     <YAxis stroke="#d1d5db" style={{ fontSize: "12px" }} />
