@@ -20,6 +20,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.options("/{full_path:path}")
+async def preflight_handler():
+    return {"message": "OK"}
+
 app.include_router(upload.router, prefix="/api")
 app.include_router(training.router, prefix="/api")
 app.include_router(chat.router, prefix="/api")
