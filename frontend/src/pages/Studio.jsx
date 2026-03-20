@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { uploadDataset, startTraining, getTrainingStatus } from "../services/api.js";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import ModelCompare from "../components/ModelCompare";
 
 const MODELS = ["TinyLlama", "DistilGPT2", "Phi-2"];
 
@@ -281,6 +282,9 @@ export default function Studio() {
             <Btn onClick={() => window.open(`http://localhost:8000/api/download-model/${model}`)}>⬇ Download</Btn>
           </div>
         </Card>
+      </div>
+      <div style={{ marginTop: 24 }}>
+        <ModelCompare />
       </div>
     </div>
   );

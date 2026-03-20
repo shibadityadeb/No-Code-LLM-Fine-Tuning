@@ -53,3 +53,10 @@ export async function downloadModel(modelName) {
   window.URL.revokeObjectURL(url);
 }
 
+export async function compareModels(userMessage, models) {
+  const response = await api.post("/compare-models", {
+    user_message: userMessage,
+    models,
+  });
+  return response.data;
+}
