@@ -25,7 +25,7 @@ except ImportError:
 
 from peft import LoraConfig, get_peft_model
 
-from backend.services.dataset_validator import load_and_clean_dataset, validate_dataset
+from backend.services.dataset_validator import DatasetValidationError, load_and_clean_dataset, validate_dataset
 
 # Paths used for datasets, adapters and logs.
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -86,11 +86,12 @@ def _parse_last_training_status() -> Dict[str, Optional[float]]:
         lines = f.readlines()[-10:]
 
     # Look for a line that matches our training progress format.
-    # Example line: "Epoch 1/3 | loss=2.1234 | progress=33.3%"
+    # Example line: "Step 120/800 | loss=2.1234 | progress=15.0%" or
+    # "Epoch 1.5/3 | loss=2.1234 | progress=33.3%"
     match = None
     for line in reversed(lines):
         m = re.search(
-            r"Epoch\s+(?P<epoch>\d+)/(\s?)(?P<total>\d+)\s+\|\s+loss=(?P<loss>[0-9.]+)\s+\|\s+progress=(?P<progress>[0-9.]+)%",
+            r"(?:Step\s+(?P<step>\d+?)/(?P<step_total>\d+)|Epoch\s+(?P<epoch>[0-9.]+)/(?P<epoch_total>\d+))\s+\|\s+loss=(?P<loss>[0-9.]+)\s+\|\s+progress=(?P<progress>[0-9.]+)%",
             line,
         )
         if m:
@@ -106,9 +107,19 @@ def _parse_last_training_status() -> Dict[str, Optional[float]]:
             "running": TRAINING_STATUS.get("running", False),
         }
 
+    if match.group("epoch"):
+        epoch_val = float(match.group("epoch"))
+        total_epochs = int(match.group("epoch_total"))
+    else:
+        # Derive a pseudo-epoch from steps for display consistency.
+        step = int(match.group("step"))
+        step_total = int(match.group("step_total"))
+        total_epochs = int(TRAINING_STATUS.get("total_epochs") or 1)
+        epoch_val = (step / step_total) * total_epochs if step_total else 0.0
+
     return {
-        "epoch": int(match.group("epoch")),
-        "total_epochs": int(match.group("total")),
+        "epoch": epoch_val,
+        "total_epochs": total_epochs,
         "loss": float(match.group("loss")),
         "progress": float(match.group("progress")),
         "running": TRAINING_STATUS.get("running", False),
@@ -217,6 +228,7 @@ def _run_training_job(
     epochs: int,
     batch_size: int,
     learning_rate: float,
+    steps: int = 800,
     dataset_bytes: Optional[bytes] = None,
 ) -> None:
     """Background worker that runs the training job."""
@@ -253,11 +265,9 @@ def _run_training_job(
                 f"Unsupported model_name '{model_name}'. Choose from: {', '.join(MODEL_NAME_MAP.keys())}"
             )
 
-        # If no GPU is available, use base model and skip expensive fine-tuning.
-        if not torch.cuda.is_available():
-            _append_log("No GPU available; skipping fine-tuning and using base model for inference.")
-            TRAINING_STATUS.update({"running": False})
-            return
+        use_cpu = not torch.cuda.is_available()
+        if use_cpu:
+            _append_log("No GPU available; falling back to CPU fine-tuning (slow).")
 
         # Load tokenizer + base model with resource-optimized settings.
         tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
@@ -265,11 +275,11 @@ def _run_training_job(
             tokenizer.pad_token = tokenizer.eos_token
 
         model_load_kwargs = {
-            "torch_dtype": torch.float16,
-            "device_map": "auto",
+            "torch_dtype": torch.float32 if use_cpu else torch.float16,
+            "device_map": "cpu" if use_cpu else "auto",
         }
 
-        if _BITSANDBYTES_AVAILABLE and BitsAndBytesConfig is not None:
+        if (not use_cpu) and _BITSANDBYTES_AVAILABLE and BitsAndBytesConfig is not None:
             quant_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_compute_dtype=torch.float16,
@@ -290,13 +300,22 @@ def _run_training_job(
         )
         model = get_peft_model(base_model, peft_config)
 
-        clean_texts = load_and_clean_dataset(str(DATASETS_DIR / dataset_file)) if dataset_bytes is None else None
-        if dataset_bytes is not None:
+        clean_texts = None
+        if dataset_bytes is None:
+            try:
+                clean_texts = load_and_clean_dataset(str(DATASETS_DIR / dataset_file))
+            except DatasetValidationError as exc:
+                _append_log(f"Dataset format fallback: {exc}")
+                clean_texts = texts
+        else:
             with tempfile.NamedTemporaryFile(delete=False, suffix=Path(dataset_file).suffix.lower()) as tmp:
                 tmp.write(dataset_bytes)
                 tmp_path = tmp.name
             try:
                 clean_texts = load_and_clean_dataset(tmp_path)
+            except DatasetValidationError as exc:
+                _append_log(f"Dataset format fallback: {exc}")
+                clean_texts = texts
             finally:
                 Path(tmp_path).unlink(missing_ok=True)
 
@@ -312,10 +331,11 @@ def _run_training_job(
             num_train_epochs=epochs,
             per_device_train_batch_size=batch_size,
             learning_rate=learning_rate,
+            max_steps=steps,
             logging_steps=1,
             save_strategy="no",
             logging_dir=str(LOGS_DIR),
-            fp16=True,
+            fp16=not use_cpu,
             report_to="none",
         )
 
@@ -324,14 +344,28 @@ def _run_training_job(
                 if logs is None:
                     return
                 if "loss" in logs and "epoch" in logs:
-                    epoch_val = logs.get("epoch")
                     loss_val = logs.get("loss")
-                    _append_log(f"Epoch {epoch_val:.1f} | Loss: {loss_val:.4f}")
+                    # Prefer step-based progress when max_steps is set.
+                    max_steps = args.max_steps or 0
+                    if max_steps and max_steps > 0:
+                        step = int(state.global_step)
+                        progress_val = min(100.0, (step / max_steps) * 100.0)
+                        _append_log(
+                            f"Step {step}/{max_steps} | loss={loss_val:.4f} | progress={progress_val:.1f}%"
+                        )
+                        epoch_val = (step / max_steps) * epochs
+                    else:
+                        epoch_val = logs.get("epoch")
+                        progress_val = min(100.0, (epoch_val / epochs) * 100.0)
+                        _append_log(
+                            f"Epoch {epoch_val:.1f}/{epochs} | loss={loss_val:.4f} | progress={progress_val:.1f}%"
+                        )
                     TRAINING_STATUS.update(
                         {
                             "epoch": float(epoch_val),
+                            "total_epochs": epochs,
                             "loss": float(loss_val),
-                            "progress": min(100.0, (epoch_val / epochs) * 100.0),
+                            "progress": progress_val,
                         }
                     )
 
@@ -340,7 +374,6 @@ def _run_training_job(
             args=training_args,
             train_dataset=train_dataset,
             data_collator=data_collator,
-            tokenizer=tokenizer,
             callbacks=[LoggingCallback],
         )
 
@@ -367,6 +400,7 @@ def start_training(
     epochs: int = 3,
     batch_size: int = 4,
     learning_rate: float = 2e-5,
+    steps: int = 800,
     dataset_bytes: Optional[bytes] = None,
 ) -> str:
     """Start a background training job.
@@ -384,6 +418,7 @@ def start_training(
             epochs,
             batch_size,
             learning_rate,
+            steps,
             dataset_bytes,
         ),
         daemon=True,
@@ -395,10 +430,14 @@ def start_training(
 def get_training_status() -> Dict[str, Optional[float]]:
     """Return the current training status.
 
-    This reads the latest log lines for a lightweight implementation.
+    This reads the latest log lines for a lightweight implementation,
+    falling back to the in-memory status for critical fields like total_epochs.
     """
 
     status = _parse_last_training_status()
-    # Prefer the in-memory status for the running flag.
+    # Prefer the in-memory status for the running flag and total_epochs
     status["running"] = TRAINING_STATUS.get("running", False)
+    # If total_epochs is not in parsed status, use from memory
+    if status.get("total_epochs") is None:
+        status["total_epochs"] = TRAINING_STATUS.get("total_epochs")
     return status
