@@ -8,10 +8,12 @@ STATUS_FILE = LOGS_DIR / "training_status.json"
 
 
 DEFAULT_STATUS: Dict[str, Any] = {
+    "model_name": None,
     "current_epoch": 0,
     "total_epochs": 3,
     "progress_percent": 0,
     "loss": 0,
+    "loss_history": [],
     "status": "idle",
 }
 

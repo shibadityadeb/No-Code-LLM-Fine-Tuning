@@ -1,5 +1,5 @@
 import json
-import shutil
+import zipfile
 from pathlib import Path
 from pydantic import BaseModel
 
@@ -32,13 +32,17 @@ def download_adapter(model_name: str):
         )
 
     zip_path = adapter_dir.with_suffix(".zip")
-    # Create a fresh zip every time so users get the latest weights.
-    # Only archive the adapter_dir itself (not its parent)
-    shutil.make_archive(str(adapter_dir), "zip", root_dir=str(adapter_dir.parent), base_dir=adapter_dir.name)
+    if zip_path.exists():
+        zip_path.unlink()
+
+    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
+        for file_path in sorted(adapter_dir.rglob("*")):
+            if file_path.is_file():
+                zipf.write(file_path, arcname=file_path.relative_to(adapter_dir))
 
     return FileResponse(
         path=str(zip_path),
-        filename=f"{model_name}_adapter.zip",
+        filename="fine_tuned_model.zip",
         media_type="application/zip",
     )
 

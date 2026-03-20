@@ -20,6 +20,7 @@ ADAPTERS_DIR = ROOT_DIR / "adapters"
 
 # message to include when adapter missing/fallback mode.
 FALLBACK_WARNING: Optional[str] = None
+FALLBACK_RESPONSE = "Model not available. Using base response."
 
 
 def _load_model_and_tokenizer(model_name: str):
@@ -36,48 +37,33 @@ def _load_model_and_tokenizer(model_name: str):
     if model_id is None:
         raise ValueError(f"Unsupported model_name '{model_name}'")
 
-    tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
-
-    model_kwargs = {"torch_dtype": torch.float16, "device_map": "auto"}
-
-    # Attempt quantized low-VRAM loading if supported.
     try:
-        from transformers import BitsAndBytesConfig
+        print("Chat request received")
+        tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
 
-        quant_config = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_use_double_quant=True,
-        )
-        model_kwargs["quantization_config"] = quant_config
+        model_kwargs = {"torch_dtype": "auto", "device_map": "auto" if torch.cuda.is_available() else "cpu"}
+        try:
+            base_model = AutoModelForCausalLM.from_pretrained(model_id, **model_kwargs)
+        except Exception:
+            base_model = AutoModelForCausalLM.from_pretrained(model_id)
+        print("Model loaded")
     except Exception:
-        pass
-
-    try:
-        base_model = AutoModelForCausalLM.from_pretrained(model_id, **model_kwargs)
-    except Exception:
-        base_model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16)
+        return None, None, FALLBACK_RESPONSE
 
     adapter_path = ADAPTERS_DIR / f"{model_name}_adapter"
     warning: Optional[str] = None
 
     if adapter_path.exists():
         try:
-            model = PeftModel.from_pretrained(base_model, str(adapter_path), torch_dtype=torch.float16)
-            if hasattr(model, "merge_and_unload"):
-                model = model.merge_and_unload()
+            model = PeftModel.from_pretrained(base_model, str(adapter_path))
         except Exception:
             model = base_model
             warning = "Running base model (LoRA adapter exists but failed to load)."
     else:
         model = base_model
         warning = "Running base model (fine-tuning skipped or adapter unavailable)."
-
-    if torch.cuda.is_available():
-        model = model.to("cuda")
 
     _MODEL_CACHE[model_name] = {"model": model, "tokenizer": tokenizer, "warning": warning}
     return model, tokenizer, warning
@@ -149,23 +135,27 @@ def generate_response(model_name: str, prompt: str, max_tokens: int = 100) -> st
 
     # 2) General-purpose LLM generation fallback.
     model, tokenizer, warning = _load_model_and_tokenizer(model_name)
+    if model is None or tokenizer is None:
+        return FALLBACK_RESPONSE
 
-    input_ids = tokenizer(prompt, return_tensors="pt").input_ids
-    if torch.cuda.is_available():
-        input_ids = input_ids.to("cuda")
+    try:
+        model_device = getattr(model, "device", None)
+        if model_device is None:
+            model_device = next(model.parameters()).device
 
-    output_ids = model.generate(
-        input_ids,
-        max_new_tokens=max_tokens,
-        do_sample=True,
-        temperature=0.7,
-        pad_token_id=tokenizer.eos_token_id,
-    )
+        inputs = tokenizer(prompt, return_tensors="pt")
+        inputs = {key: value.to(model_device) for key, value in inputs.items()}
 
-    decoded = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-    if decoded.startswith(prompt):
-        decoded = decoded[len(prompt) :].strip()
-
-    if warning:
-        return f"{warning}\n{decoded}"
-    return decoded
+        output_ids = model.generate(
+            **inputs,
+            max_new_tokens=max_tokens,
+            do_sample=True,
+            temperature=0.7,
+            pad_token_id=tokenizer.eos_token_id,
+        )
+        decoded = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+        if decoded.startswith(prompt):
+            decoded = decoded[len(prompt) :].strip()
+        return f"{warning}\n{decoded}".strip() if warning else decoded
+    except Exception:
+        return FALLBACK_RESPONSE

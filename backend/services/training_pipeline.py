@@ -38,6 +38,7 @@ ADAPTERS_DIR.mkdir(parents=True, exist_ok=True)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 TRAINING_LOG_PATH = LOGS_DIR / "training.log"
+LOSS_CURVE_PATH = LOGS_DIR / "loss_curve.png"
 
 # A small map of friendly model names to Hugging Face model IDs.
 # In a real production setup, you'd likely allow more models or validate against a known list.
@@ -60,25 +61,77 @@ TRAINING_STATUS: Dict[str, Optional[float]] = {
     "status": "idle",
 }
 
+MAX_LOSS_HISTORY_POINTS = 500
+
+
+def smooth_loss(loss_values: List[float], window: int = 5) -> List[float]:
+    if not loss_values:
+        return []
+
+    smoothed: List[float] = []
+    for i in range(len(loss_values)):
+        start = max(0, i - window + 1)
+        segment = loss_values[start : i + 1]
+        smoothed.append(sum(segment) / len(segment))
+    return smoothed
+
+
+def _build_loss_history(loss_values: List[float]) -> List[Dict[str, float]]:
+    smoothed = smooth_loss(loss_values)
+    return [
+        {"step": index + 1, "loss": round(loss, 4)}
+        for index, loss in enumerate(smoothed[-MAX_LOSS_HISTORY_POINTS:])
+    ]
+
+
+def _save_loss_curve(loss_values: List[float]) -> None:
+    if not loss_values:
+        return
+
+    try:
+        import matplotlib
+
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+
+        smoothed = smooth_loss(loss_values)
+        plt.figure(figsize=(8, 4))
+        plt.plot(range(1, len(smoothed) + 1), smoothed, color="#22c55e", linewidth=2)
+        plt.title("Training Loss")
+        plt.xlabel("Step")
+        plt.ylabel("Loss")
+        plt.tight_layout()
+        plt.savefig(LOSS_CURVE_PATH)
+        plt.close()
+    except Exception:
+        logging.exception("Unable to save loss curve image")
+
 
 def _simulate_training(job_id: str, epochs: int, steps: int) -> None:
     """Simulate training when no GPU is available."""
     total_epochs = max(1, epochs)
+    simulated_losses: List[float] = []
     TRAINING_STATUS["status"] = "running"
     write_status(
         {
+            "model_name": TRAINING_STATUS.get("model_name"),
             "current_epoch": 0,
             "total_epochs": total_epochs,
             "progress_percent": 0.0,
             "loss": 0,
+            "loss_history": [],
             "status": "running",
         }
     )
-    for epoch in range(1, total_epochs + 1):
-        time.sleep(1)
-        loss_val = max(0.1, 5.0 / epoch)
-        progress_val = min(100.0, (epoch / total_epochs) * 100.0)
-        _append_log(f"Epoch {epoch:.1f}/{total_epochs} | loss={loss_val:.4f} | progress={progress_val:.1f}%")
+    total_steps = max(steps, total_epochs)
+    for step in range(1, total_steps + 1):
+        time.sleep(0.1)
+        epoch = min(total_epochs, (step / total_steps) * total_epochs)
+        loss_val = max(0.1, 5.0 / max(epoch, 1))
+        progress_val = min(100.0, (step / total_steps) * 100.0)
+        simulated_losses.append(float(loss_val))
+        loss_history = _build_loss_history(simulated_losses)
+        _append_log(f"Step {step}/{total_steps} | loss={loss_val:.4f} | progress={progress_val:.1f}%")
         TRAINING_STATUS.update(
             {
                 "job_id": job_id,
@@ -87,26 +140,32 @@ def _simulate_training(job_id: str, epochs: int, steps: int) -> None:
                 "loss": float(loss_val),
                 "progress": progress_val,
                 "running": True,
+                "status": "running",
             }
         )
         write_status(
             {
-                "current_epoch": epoch,
+                "model_name": TRAINING_STATUS.get("model_name"),
+                "current_epoch": float(epoch),
                 "total_epochs": total_epochs,
                 "progress_percent": progress_val,
                 "loss": float(loss_val),
+                "loss_history": loss_history,
                 "status": "running",
             }
         )
 
     TRAINING_STATUS["running"] = False
     TRAINING_STATUS["status"] = "completed"
+    _save_loss_curve(simulated_losses)
     write_status(
         {
+            "model_name": TRAINING_STATUS.get("model_name"),
             "current_epoch": total_epochs,
             "total_epochs": total_epochs,
             "progress_percent": 100.0,
             "loss": float(TRAINING_STATUS.get("loss") or 0),
+            "loss_history": _build_loss_history(simulated_losses),
             "status": "completed",
         }
     )
@@ -300,10 +359,12 @@ def _run_training_job(
     )
     write_status(
         {
+            "model_name": model_name,
             "current_epoch": 0,
             "total_epochs": epochs,
             "progress_percent": 0.0,
             "loss": 0,
+            "loss_history": [],
             "status": "starting",
         }
     )
@@ -404,12 +465,16 @@ def _run_training_job(
             report_to="none",
         )
 
+        loss_values: List[float] = []
+
         class LoggingCallback(TrainerCallback):
             def on_log(self, args, state, control, logs=None, **kwargs):
                 if logs is None:
                     return
                 if "loss" in logs and "epoch" in logs:
                     loss_val = logs.get("loss")
+                    loss_values.append(float(loss_val))
+                    loss_history = _build_loss_history(loss_values)
                     # Prefer step-based progress when max_steps is set.
                     max_steps = args.max_steps or 0
                     if max_steps and max_steps > 0:
@@ -435,10 +500,12 @@ def _run_training_job(
                     )
                     write_status(
                         {
+                            "model_name": model_name,
                             "current_epoch": float(epoch_val),
                             "total_epochs": epochs,
                             "progress_percent": progress_val,
                             "loss": float(loss_val),
+                            "loss_history": loss_history,
                             "status": "running",
                         }
                     )
@@ -456,14 +523,17 @@ def _run_training_job(
         # Ensure adapter-specific artifacts are saved for the PEFT model.
         model.save_pretrained(str(adapter_dir))
         tokenizer.save_pretrained(str(adapter_dir))
+        _save_loss_curve(loss_values)
 
         _append_log(f"Training job {job_id} completed successfully")
         write_status(
             {
+                "model_name": model_name,
                 "current_epoch": epochs,
                 "total_epochs": epochs,
                 "progress_percent": 100.0,
                 "loss": float(TRAINING_STATUS.get("loss") or 0),
+                "loss_history": _build_loss_history(loss_values),
                 "status": "completed",
             }
         )
@@ -471,6 +541,16 @@ def _run_training_job(
     except Exception as e:
         logging.exception("Training job failed")
         _append_log(f"Training job {job_id} failed: {e}")
+        write_status(
+            {
+                "model_name": model_name,
+                "current_epoch": float(TRAINING_STATUS.get("epoch") or 0),
+                "total_epochs": epochs,
+                "progress_percent": float(TRAINING_STATUS.get("progress") or 0),
+                "loss": float(TRAINING_STATUS.get("loss") or 0),
+                "status": "failed",
+            }
+        )
         raise
 
     finally:

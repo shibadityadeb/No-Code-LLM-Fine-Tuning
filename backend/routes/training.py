@@ -1,5 +1,5 @@
 from fastapi import APIRouter, BackgroundTasks, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 import os
 from pathlib import Path
@@ -21,10 +21,12 @@ class TrainingRequest(BaseModel):
 
 
 class TrainingStatusResponse(BaseModel):
+    model_name: str | None = None
     current_epoch: float | None
     total_epochs: int | None
     progress_percent: float
     loss: float | None
+    loss_history: list[dict[str, float | int]] = Field(default_factory=list)
     status: str
 
 

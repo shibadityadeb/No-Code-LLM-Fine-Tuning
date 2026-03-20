@@ -48,10 +48,16 @@ export async function downloadModel(modelName) {
   const res = await api.get(`/download-model/${encodeURIComponent(modelName)}`, {
     responseType: "blob",
   });
+  const contentType = res.headers["content-type"] || "";
+  if (contentType.includes("application/json")) {
+    const text = await res.data.text();
+    const data = JSON.parse(text);
+    throw new Error(data.detail || data.error || "Failed to download model.");
+  }
   const url = window.URL.createObjectURL(new Blob([res.data]));
   const a = document.createElement("a");
   a.href = url;
-  a.setAttribute("download", `${modelName}_adapter.zip`);
+  a.setAttribute("download", "fine_tuned_model.zip");
   document.body.appendChild(a);
   a.click();
   a.remove();

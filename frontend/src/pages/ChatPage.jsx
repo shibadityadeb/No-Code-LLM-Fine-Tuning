@@ -3,7 +3,7 @@ import { Bot, CornerDownLeft, SendHorizonal } from "lucide-react";
 import Card from "../components/Card.jsx";
 import Button from "../components/Button.jsx";
 import Input, { FieldLabel, Select } from "../components/Input.jsx";
-import { getWorkspaceSnapshot, sendMessage } from "../services/api.js";
+import { getTrainingStatus, getWorkspaceSnapshot, sendMessage } from "../services/api.js";
 
 const MODELS = ["TinyLlama", "DistilGPT2", "Phi-2"];
 
@@ -14,6 +14,7 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false);
   const [ready, setReady] = useState(false);
   const [readyMessage, setReadyMessage] = useState("");
+  const [chatError, setChatError] = useState("");
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -23,17 +24,24 @@ export default function ChatPage() {
   useEffect(() => {
     const checkSnapshot = async () => {
       try {
+        const trainingStatus = await getTrainingStatus();
+        if (trainingStatus?.status === "completed") {
+          setReady(true);
+          setReadyMessage("");
+          return;
+        }
+
         const snapshot = await getWorkspaceSnapshot();
-        if (snapshot && snapshot.status !== "empty") {
+        if (snapshot && snapshot.status === "completed") {
           setReady(true);
           setReadyMessage("");
         } else {
           setReady(false);
-          setReadyMessage("Fine-tune a model before chatting.");
+          setReadyMessage("Chat unlocks after training completes.");
         }
       } catch (error) {
         setReady(false);
-        setReadyMessage("Fine-tune a model before chatting.");
+        setReadyMessage("Chat unlocks after training completes.");
       }
     };
 
@@ -49,14 +57,17 @@ export default function ChatPage() {
     setMessages((current) => [...current, { role: "user", text: nextMessage }]);
     setInput("");
     setLoading(true);
+    setChatError("");
 
     try {
       const response = await sendMessage(model, nextMessage);
       setMessages((current) => [...current, { role: "assistant", text: response.response }]);
     } catch (error) {
+      const message = error?.response?.data?.detail || "Unable to reach the model.";
+      setChatError(message);
       setMessages((current) => [
         ...current,
-        { role: "assistant", text: error?.response?.data?.detail || "Unable to reach the model." },
+        { role: "assistant", text: message },
       ]);
     } finally {
       setLoading(false);
@@ -163,6 +174,11 @@ export default function ChatPage() {
           {readyMessage && (
             <div className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
               {readyMessage}
+            </div>
+          )}
+          {chatError && (
+            <div className="mt-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {chatError}
             </div>
           )}
           <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">

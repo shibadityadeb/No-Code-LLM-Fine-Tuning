@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowUpFromLine,
   ChartSpline,
@@ -116,45 +116,50 @@ export default function Studio({ darkMode = false, onOpenChat }) {
   const [status, setStatus] = useState(null);
   const [trainingComplete, setTrainingComplete] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [lossHistory, setLossHistory] = useState([
-    { step: 1, loss: 2.31 },
-    { step: 2, loss: 1.97 },
-    { step: 3, loss: 1.71 },
-    { step: 4, loss: 1.43 },
-    { step: 5, loss: 1.26 },
-  ]);
+  const [lossHistory, setLossHistory] = useState([]);
   const [training, setTraining] = useState(false);
   const [trainingMessage, setTrainingMessage] = useState("");
   const [snapshot, setSnapshot] = useState(null);
   const pollRef = useRef(null);
-  const lastLossRef = useRef(null);  // Track last loss to avoid duplicates
 
   const themeClass = darkMode
     ? "bg-white/95"
     : "bg-white";
-
-  const datasetSummary = useMemo(() => {
-    if (!uploadMeta) {
-      return "No dataset uploaded yet";
-    }
-
-    return `${uploadMeta.file_name} • ${uploadMeta.rows} rows`;
-  }, [uploadMeta]);
+  const datasetSummary = uploadMeta ? `${uploadMeta.file_name} • ${uploadMeta.rows} rows` : "No dataset uploaded yet";
 
 
   useEffect(() => {
-    // Fetch saved snapshot on component mount
-    const fetchSnapshot = async () => {
+    const hydrateWorkspace = async () => {
+      try {
+        const trainingStatus = await getTrainingStatus();
+        if (trainingStatus) {
+          setStatus(trainingStatus);
+          if (Array.isArray(trainingStatus.loss_history)) {
+            setLossHistory(trainingStatus.loss_history);
+          }
+          if (trainingStatus.status === "completed") {
+            setTrainingComplete(true);
+          } else if (trainingStatus.status === "running" || trainingStatus.status === "starting") {
+            setTraining(true);
+          }
+        }
+      } catch (error) {
+        // Training may not have started yet.
+      }
+
       try {
         const data = await getWorkspaceSnapshot();
         if (data && data.status !== "empty") {
           setSnapshot(data);
+          if (data.status === "completed") {
+            setTrainingComplete(true);
+          }
         }
       } catch (error) {
         // No snapshot yet, which is fine
       }
     };
-    fetchSnapshot();
+    hydrateWorkspace();
 
     return () => clearInterval(pollRef.current);
   }, []);
@@ -239,8 +244,7 @@ export default function Studio({ darkMode = false, onOpenChat }) {
     setTraining(true);
     setTrainingComplete(false);
     setTrainingMessage("");
-    setLossHistory([]);  // Clear history for fresh training session
-    lastLossRef.current = null;
+    setLossHistory([]);
 
     try {
       await startTraining(
@@ -255,20 +259,20 @@ export default function Studio({ darkMode = false, onOpenChat }) {
         try {
           const nextStatus = await getTrainingStatus();
           setStatus(nextStatus);
-          
-          // Only add to loss history if loss value has changed
-          if (nextStatus.loss != null && nextStatus.loss !== lastLossRef.current) {
-            lastLossRef.current = nextStatus.loss;
-            setLossHistory((current) =>
-              [...current, { step: current.length + 1, loss: Number(nextStatus.loss.toFixed(4)) }].slice(-20)
-            );
+          if (Array.isArray(nextStatus.loss_history)) {
+            setLossHistory(nextStatus.loss_history);
           }
-          
+
           if (nextStatus.status === "completed") {
             clearInterval(pollRef.current);
             setTraining(false);
             setTrainingComplete(true);
             setTrainingMessage("Training completed successfully!");
+          } else if (nextStatus.status === "failed") {
+            clearInterval(pollRef.current);
+            setTraining(false);
+            setTrainingComplete(false);
+            setTrainingMessage("Training failed. Check backend logs for details.");
           }
         } catch (error) {
           clearInterval(pollRef.current);
@@ -283,7 +287,7 @@ export default function Studio({ darkMode = false, onOpenChat }) {
   };
 
   const handleSaveWorkspace = async () => {
-    if (!trainingComplete || !status) {
+    if (!canDownload || !status) {
       setTrainingMessage("Training must be complete before saving.");
       return;
     }
@@ -313,7 +317,7 @@ export default function Studio({ darkMode = false, onOpenChat }) {
   };
 
   const handleDownloadModel = async () => {
-    if (!trainingComplete) {
+    if (!canDownload) {
       setTrainingMessage("Training must be complete before downloading.");
       return;
     }
@@ -321,30 +325,25 @@ export default function Studio({ darkMode = false, onOpenChat }) {
     try {
       await downloadModel(model);
     } catch (error) {
-      setTrainingMessage(error?.response?.data?.detail || "Failed to download model.");
+      setTrainingMessage(error?.message || error?.response?.data?.detail || "Failed to download model.");
     }
   };
 
   const handleReset = () => {
     clearInterval(pollRef.current);
-    lastLossRef.current = null;
     setTraining(false);
     setTrainingComplete(false);
     setStatus(null);
     setTrainingMessage("");
-    setLossHistory([
-      { step: 1, loss: 2.31 },
-      { step: 2, loss: 1.97 },
-      { step: 3, loss: 1.71 },
-      { step: 4, loss: 1.43 },
-      { step: 5, loss: 1.26 },
-    ]);
+    setLossHistory([]);
   };
 
   const progress = status?.progress_percent ?? 0;
   const currentEpoch = status?.current_epoch ?? 0;
   const totalEpochs = status?.total_epochs ?? params.epochs;
   const currentLoss = status?.loss != null ? status.loss.toFixed(4) : lossHistory.at(-1)?.loss?.toFixed(4) ?? "--";
+  const canDownload = trainingComplete || snapshot?.status === "completed";
+  const canChat = canDownload;
 
   // Format progress text: "Epoch 2/3 • 68%"
   const progressText = `Epoch ${currentEpoch.toFixed(1)}/${totalEpochs} • ${Math.round(progress)}%`;
@@ -650,16 +649,17 @@ export default function Studio({ darkMode = false, onOpenChat }) {
               </div>
               <div className="h-40 w-full min-h-[160px]">
                 <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={160}>
-                  <LineChart data={lossHistory} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                    <XAxis dataKey="step" stroke="#d1d5db" style={{ fontSize: "12px" }} />
-                    <YAxis stroke="#d1d5db" style={{ fontSize: "12px" }} />
-                    <Tooltip content={<ChartTooltip />} />
-                    <Line
+                    <LineChart data={lossHistory} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                      <XAxis dataKey="step" stroke="#d1d5db" style={{ fontSize: "12px" }} />
+                      <YAxis stroke="#d1d5db" style={{ fontSize: "12px" }} />
+                      <Tooltip content={<ChartTooltip />} />
+                      <Line
                       type="monotone"
                       dataKey="loss"
                       stroke="#22c55e"
                       strokeWidth={3}
                       dot={false}
+                      isAnimationActive={false}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -698,7 +698,7 @@ export default function Studio({ darkMode = false, onOpenChat }) {
             <div className="grid grid-cols-2 gap-3">
               <Button
                 variant="secondary"
-                disabled={!trainingComplete || saving}
+                disabled={!canDownload || saving}
                 onClick={handleSaveWorkspace}
               >
                 {saving ? <span className="loading loading-spinner loading-sm" /> : <Check size={16} />}
@@ -706,7 +706,7 @@ export default function Studio({ darkMode = false, onOpenChat }) {
               </Button>
               <Button
                 variant="secondary"
-                disabled={!trainingComplete}
+                disabled={!canDownload}
                 onClick={handleDownloadModel}
               >
                 <Download size={16} />
@@ -717,7 +717,7 @@ export default function Studio({ darkMode = false, onOpenChat }) {
             <Button
               variant="secondary"
               className="w-full"
-              disabled={!trainingComplete}
+              disabled={!canChat}
               onClick={() => onOpenChat?.()}
             >
               <MessageSquare size={16} />
