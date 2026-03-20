@@ -10,7 +10,7 @@ venv/
 # VS Code
 .vscode/
 
-# Node
+# Node 
 node_modules/
 dist/
 .build/

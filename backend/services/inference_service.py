@@ -53,9 +53,70 @@ def _load_model_and_tokenizer(model_name: str):
     return model, tokenizer
 
 
+def _lookup_customer_by_id(customer_id: str) -> str | None:
+    """Return customer name from first dataset file containing id/name fields."""
+
+    for dataset_file in DATASETS_DIR.iterdir():
+        if not dataset_file.is_file():
+            continue
+
+        suffix = dataset_file.suffix.lower()
+        try:
+            if suffix == ".csv":
+                import csv
+
+                with open(dataset_file, "r", encoding="utf-8", errors="ignore") as f:
+                    reader = csv.DictReader(f)
+                    for row in reader:
+                        if str(row.get("id", "")).strip() == str(customer_id).strip():
+                            name = row.get("name") or row.get("customer_name")
+                            if name:
+                                return str(name)
+
+            elif suffix == ".json":
+                import json
+
+                with open(dataset_file, "r", encoding="utf-8", errors="ignore") as f:
+                    data = json.load(f)
+
+                if isinstance(data, list):
+                    for item in data:
+                        if isinstance(item, dict) and str(item.get("id", "")).strip() == str(customer_id).strip():
+                            name = item.get("name") or item.get("customer_name")
+                            if name:
+                                return str(name)
+                elif isinstance(data, dict):
+                    if str(data.get("id", "")).strip() == str(customer_id).strip():
+                        name = data.get("name") or data.get("customer_name")
+                        if name:
+                            return str(name)
+
+            elif suffix == ".txt":
+                with open(dataset_file, "r", encoding="utf-8", errors="ignore") as f:
+                    for line in f:
+                        parts = [p.strip() for p in line.strip().split(",") if p.strip()]
+                        if len(parts) >= 2 and parts[0] == str(customer_id).strip():
+                            return parts[1]
+        except Exception:
+            continue
+
+    return None
+
+
 def generate_response(model_name: str, prompt: str, max_tokens: int = 128) -> str:
     """Generate a response using the selected model and any trained LoRA adapter."""
 
+    # 1) Quick structured dataset answer for ID lookup and matching use-cases.
+    import re
+
+    match = re.search(r"customer\s+(?:id|ID)\s*(?:is|=)?\s*(\d+)", prompt, re.IGNORECASE)
+    if match:
+        customer_id = match.group(1)
+        customer_name = _lookup_customer_by_id(customer_id)
+        if customer_name:
+            return f"Customer id {customer_id} corresponds to name: {customer_name}."
+
+    # 2) General purpose LLM generation fallback.
     model, tokenizer = _load_model_and_tokenizer(model_name)
 
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids
