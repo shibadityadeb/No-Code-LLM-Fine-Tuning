@@ -5,6 +5,7 @@ from pathlib import Path
 
 from backend.routes.upload import UPLOADED_DATASETS
 from backend.services.training_pipeline import get_training_status, start_training, TRAINING_STATUS
+from backend.utils.status_store import read_status
 
 router = APIRouter()
 
@@ -77,16 +78,25 @@ async def start_training_endpoint(request: TrainingRequest, background_tasks: Ba
 def training_status() -> TrainingStatusResponse:
     """Get the most recent training status (epoch, loss, progress)."""
     try:
-        raw_status = get_training_status()
-    except Exception:
-        # Fallback to in-memory status if log parsing fails.
+        persisted = read_status()
         raw_status = {
-            "epoch": TRAINING_STATUS.get("epoch"),
-            "total_epochs": TRAINING_STATUS.get("total_epochs"),
-            "loss": TRAINING_STATUS.get("loss"),
-            "progress": TRAINING_STATUS.get("progress"),
-            "running": TRAINING_STATUS.get("running", False),
+            "epoch": persisted.get("current_epoch"),
+            "total_epochs": persisted.get("total_epochs"),
+            "loss": persisted.get("loss"),
+            "progress": persisted.get("progress_percent"),
+            "running": persisted.get("status") == "running",
         }
+    except Exception:
+        try:
+            raw_status = get_training_status()
+        except Exception:
+            raw_status = {
+                "epoch": TRAINING_STATUS.get("epoch"),
+                "total_epochs": TRAINING_STATUS.get("total_epochs"),
+                "loss": TRAINING_STATUS.get("loss"),
+                "progress": TRAINING_STATUS.get("progress"),
+                "running": TRAINING_STATUS.get("running", False),
+            }
     # Ensure progress_percent is always a valid number (not None)
     progress = raw_status.get("progress") or 0
     if progress is None:

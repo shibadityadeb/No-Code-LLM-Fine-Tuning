@@ -26,6 +26,7 @@ except ImportError:
 from peft import LoraConfig, get_peft_model
 
 from backend.services.dataset_validator import DatasetValidationError, load_and_clean_dataset, validate_dataset
+from backend.utils.status_store import write_status
 
 # Paths used for datasets, adapters and logs.
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -56,6 +57,7 @@ TRAINING_STATUS: Dict[str, Optional[float]] = {
     "loss": None,
     "progress": None,
     "running": False,
+    "status": "idle",
 }
 
 
@@ -63,6 +65,15 @@ def _simulate_training(job_id: str, epochs: int, steps: int) -> None:
     """Simulate training when no GPU is available."""
     total_epochs = max(1, epochs)
     TRAINING_STATUS["status"] = "running"
+    write_status(
+        {
+            "current_epoch": 0,
+            "total_epochs": total_epochs,
+            "progress_percent": 0.0,
+            "loss": 0,
+            "status": "running",
+        }
+    )
     for epoch in range(1, total_epochs + 1):
         time.sleep(1)
         loss_val = max(0.1, 5.0 / epoch)
@@ -78,9 +89,27 @@ def _simulate_training(job_id: str, epochs: int, steps: int) -> None:
                 "running": True,
             }
         )
+        write_status(
+            {
+                "current_epoch": epoch,
+                "total_epochs": total_epochs,
+                "progress_percent": progress_val,
+                "loss": float(loss_val),
+                "status": "running",
+            }
+        )
 
     TRAINING_STATUS["running"] = False
     TRAINING_STATUS["status"] = "completed"
+    write_status(
+        {
+            "current_epoch": total_epochs,
+            "total_epochs": total_epochs,
+            "progress_percent": 100.0,
+            "loss": float(TRAINING_STATUS.get("loss") or 0),
+            "status": "completed",
+        }
+    )
 
 
 def _append_log(message: str) -> None:
@@ -266,6 +295,16 @@ def _run_training_job(
             "loss": None,
             "progress": 0.0,
             "running": True,
+            "status": "starting",
+        }
+    )
+    write_status(
+        {
+            "current_epoch": 0,
+            "total_epochs": epochs,
+            "progress_percent": 0.0,
+            "loss": 0,
+            "status": "starting",
         }
     )
 
@@ -394,6 +433,15 @@ def _run_training_job(
                             "progress": progress_val,
                         }
                     )
+                    write_status(
+                        {
+                            "current_epoch": float(epoch_val),
+                            "total_epochs": epochs,
+                            "progress_percent": progress_val,
+                            "loss": float(loss_val),
+                            "status": "running",
+                        }
+                    )
 
         trainer = Trainer(
             model=model,
@@ -410,6 +458,15 @@ def _run_training_job(
         tokenizer.save_pretrained(str(adapter_dir))
 
         _append_log(f"Training job {job_id} completed successfully")
+        write_status(
+            {
+                "current_epoch": epochs,
+                "total_epochs": epochs,
+                "progress_percent": 100.0,
+                "loss": float(TRAINING_STATUS.get("loss") or 0),
+                "status": "completed",
+            }
+        )
 
     except Exception as e:
         logging.exception("Training job failed")

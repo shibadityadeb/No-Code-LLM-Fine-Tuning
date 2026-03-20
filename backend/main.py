@@ -2,8 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.routes import upload, training, chat, download
+from backend.utils.status_store import ensure_status_file
 
 app = FastAPI(title="llm-finetune-studio")
+
+# Ensure persisted training status exists at startup.
+ensure_status_file()
 
 # Allow frontend dev server to access backend APIs.
 origins = [
