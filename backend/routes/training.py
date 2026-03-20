@@ -68,10 +68,9 @@ async def start_training_endpoint(request: TrainingRequest, background_tasks: Ba
 
     try:
         background_tasks.add_task(_start_training_job, request, dataset_bytes)
+        return {"status": "started"}
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-    return {"status": "started"}
+        return {"status": "error", "message": str(e)}
 
 
 @router.get("/training-status")

@@ -33,3 +33,8 @@ app.include_router(download.router, prefix="/api")
 @app.get("/")
 def root():
     return {"message": "llm-finetune-studio backend is running"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}

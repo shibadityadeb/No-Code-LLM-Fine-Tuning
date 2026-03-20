@@ -62,6 +62,7 @@ TRAINING_STATUS: Dict[str, Optional[float]] = {
 def _simulate_training(job_id: str, epochs: int, steps: int) -> None:
     """Simulate training when no GPU is available."""
     total_epochs = max(1, epochs)
+    TRAINING_STATUS["status"] = "running"
     for epoch in range(1, total_epochs + 1):
         time.sleep(1)
         loss_val = max(0.1, 5.0 / epoch)
@@ -79,6 +80,7 @@ def _simulate_training(job_id: str, epochs: int, steps: int) -> None:
         )
 
     TRAINING_STATUS["running"] = False
+    TRAINING_STATUS["status"] = "completed"
 
 
 def _append_log(message: str) -> None:
